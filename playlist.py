@@ -25,7 +25,7 @@ class playlist:
         playlist_id = query["list"][0]
 
         youtube = googleapiclient.discovery.build(
-            "youtube", "v3", developerKey="AIzaSyB48LB5CcIEouu9-loQX7xihW0cslWFapE")
+            "youtube", "v3", developerKey="")
 
         request = youtube.playlistItems().list(
             part="snippet",
