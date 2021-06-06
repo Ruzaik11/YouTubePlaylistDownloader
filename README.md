@@ -1,5 +1,5 @@
 # ytPlaylistD
-YouTube Play list downloader python program 
+YouTube Play list downloader python program currently supports 360p & 720p video qualities 
 
 # setup
 01 : add developerKey
