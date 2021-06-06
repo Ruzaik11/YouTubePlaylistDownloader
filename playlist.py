@@ -69,7 +69,6 @@ class playlist:
         streamvid = yt.streams.filter(
             res=self.format, progressive=True).first()
         streamvid.download(self.path)
-        video_name = self.path + '\\' + streamvid.default_filename
 
         # sys.exit()
 
