@@ -1,7 +1,6 @@
 # YouTubePlaylistDownloader
 YouTubePlaylistDownloader python program currently supports 360p & 720p video qualities 
 # setup
-01 : Add developerKey \
 02 : Run : pip install -r requirements.txt \
 03 : Finally run \
 \
