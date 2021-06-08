@@ -37,7 +37,7 @@ class playlist:
         playlist_id = query["list"][0]
 
         youtube = googleapiclient.discovery.build(
-            "youtube", "v3", developerKey="AIzaSyCKmQpmkvPzPkbygywGIn6o6m_42XjOm-Q")
+            "youtube", "v3", developerKey="***********")
 
         request = youtube.playlistItems().list(
             part="snippet",
@@ -60,6 +60,8 @@ class playlist:
             sleep(0.25)
             video_url = f'https://www.youtube.com/watch?v={videos["snippet"]["resourceId"]["videoId"]}&list={playlist_id}&t=0s'
             self.download_videos(video_url)
+
+        print("Playlist downloaded successfully....")
 
     def download_videos(self, video_url):
 
