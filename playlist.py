@@ -12,6 +12,8 @@ class playlist:
 
     play_list = []
 
+    download_format='720p'
+
     default_path = 'C:\Downloads'
 
     def __init__(self, url, path, format) -> None:
@@ -20,12 +22,22 @@ class playlist:
         self.format = format
 
     def extract_play_list(self):
+
+        
+        if(self.format == '1'):
+            self.download_format = '360p'
+        elif(self.format == '2'):
+            self.download_format = '720p'
+        else:
+            sys.exit("invalid video format please enter (1=360p,2=720p)")
+
+
         query = parse_qs(urlparse(self.url).query, keep_blank_values=True)
 
         playlist_id = query["list"][0]
 
         youtube = googleapiclient.discovery.build(
-            "youtube", "v3", developerKey="")
+            "youtube", "v3", developerKey="AIzaSyCKmQpmkvPzPkbygywGIn6o6m_42XjOm-Q")
 
         request = youtube.playlistItems().list(
             part="snippet",
@@ -57,19 +69,12 @@ class playlist:
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-        if(self.format == '1'):
-            self.format = '360p'
-        elif(self.format == '2'):
-            self.format = '720p'
-        else:
-            sys.exit("invalid video format please enter (1=360p,2=720p)")
-
         yt = pytube.YouTube(video_url)
 
-        streamvid = yt.streams.filter(
-            res=self.format, progressive=True).first()
-        streamvid.download(self.path)
-
+        streamvid = yt.streams.filter(res=self.download_format, progressive=True).first()
+        
+        if not os.path.exists(self.path + '\\' + streamvid.default_filename ):
+            streamvid.download(self.path)
         # sys.exit()
 
 
