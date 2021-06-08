@@ -31,35 +31,13 @@ class playlist:
         else:
             sys.exit("invalid video format please enter (1=360p,2=720p)")
 
-
-        query = parse_qs(urlparse(self.url).query, keep_blank_values=True)
-
-        playlist_id = query["list"][0]
-
-        youtube = googleapiclient.discovery.build(
-            "youtube", "v3", developerKey="***********")
-
-        request = youtube.playlistItems().list(
-            part="snippet",
-            playlistId=playlist_id,
-            maxResults=50
-        )
-
-        response = request.execute()
-
-        playlist_items = []
-
-        while request is not None:
-            response = request.execute()
-            playlist_items += response["items"]
-            request = youtube.playlistItems().list_next(request, response)
-
+        playlist_items=pytube.Playlist(self.url) 
+      
         print(f"total: {len(playlist_items)}")
 
         for videos in tqdm(playlist_items):
             sleep(0.25)
-            video_url = f'https://www.youtube.com/watch?v={videos["snippet"]["resourceId"]["videoId"]}&list={playlist_id}&t=0s'
-            self.download_videos(video_url)
+            self.download_videos(videos)
 
         print("Playlist downloaded successfully....")
 
